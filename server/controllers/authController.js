@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import userModel from '../models/userModel.js';
 import transporter from '../config/nodemailer.js';
-import { welcomeMessage } from '../mailMessages/welcomeMessage.js';
+
 
 
 
@@ -37,7 +37,7 @@ export const register = async (req, res) =>{
             from: process.env.SMTP_EMAIL,
             to: email,
             subject: 'Welcome to Carrier Connect', 
-            html: welcomeMessage
+            text: 'Your account has been created'
         }
 
         await transporter.sendMail(mailOptions);
@@ -94,6 +94,30 @@ export const logout = async (req, res) =>{
         })
         return res.json ({sucess: true, message: "Logged Out"})
         
+    } catch (error) {
+        return res.json ({sucess: false, message: error.message})
+    }
+}
+
+// Send Vefification OTP to user's Email 
+export const sendVerifyOtp = async (req, res) =>{
+    try {
+
+        const {UserId} = req.body;
+        const user = await userModel.findById(userId);
+        
+        if(user.isAccountVerified){
+            return res.json({success: false, message: "Account Already Verified"})
+        
+        }
+       
+        const Otp = String(Math.floor(100000 + Math.random()*900000))
+
+        user.verifyOtp =otp
+        user.verifyOtpExpireAt = Date.now() + 24 * 60 * 60 * 1000
+
+        await user.save();
+    
     } catch (error) {
         return res.json ({sucess: false, message: error.message})
     }
