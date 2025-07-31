@@ -133,3 +133,37 @@ export const sendVerifyOtp = async (req, res) =>{
         return res.json ({sucess: false, message: error.message})
     }
 }
+
+export const verfiedEmail = async (req, res) => {
+    const {userId, otp} = req.body;
+    
+    if (!userId || !otp) {
+        return res.json({success: true, message: 'Missing details'})
+    }
+    try {
+        const user = await userModel.findById(userId);
+
+        if(!user){
+            return res.json ({success: false, message: "User not found"})
+        }
+
+        if(user.verifyOtp === "" || verifyOtp !== otp){
+            return res.json ({success: false, message: "invaild OTP"})
+        }
+
+        if(user.verifyOtpExpireAt < Date.now()){
+            return res.json ({success: false, message: "OTP Expired"})
+        }
+
+        user.isAccountVerified = true;
+        user.verifyOtp = "";
+        user.verifyOtpExpireAt = 0;
+
+        await user.save();
+        
+        return res.json({sucess: true.valueOf, message: "Email verified sucessfully"})
+
+    } catch (error) {
+        return res.json ({sucess: false, message: error.message})
+    }
+}
