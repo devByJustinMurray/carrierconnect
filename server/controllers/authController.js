@@ -6,17 +6,18 @@ import transporter from '../config/nodemailer.js';
 
 
 
+
 // Register
 export const register = async (req, res) =>{
     const{name, email, password} = req.body;
 
     if(!name || !email || !password){
-        return res.json({sucess: false, message: 'Missing user information!'})
+        return res.json({success: false, message: 'Missing user information!'})
     }
     try {
         const existingUser = await userModel.findOne({email});
         if (existingUser){
-            return res.json ({sucess: false, messga: "User already exists!"})
+            return res.json ({success: false, messga: "User already exists!"})
         };
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = new userModel({name, email, password: hashedPassword});
@@ -92,10 +93,10 @@ export const logout = async (req, res) =>{
             secure: process.env.NODE_ENV === 'production',
             saneSite: process.env.NODE_ENV === 'production' ? 'none' : "strict",
         })
-        return res.json ({sucess: true, message: "Logged Out"})
+        return res.json ({success: true, message: "Logged Out"})
         
     } catch (error) {
-        return res.json ({sucess: false, message: error.message})
+        return res.json ({success: false, message: error.message})
     }
 }
 
@@ -103,9 +104,11 @@ export const logout = async (req, res) =>{
 export const sendVerifyOtp = async (req, res) =>{
     try {
 
-        const {UserId} = req.body;
+        const userId = req.userId;
         const user = await userModel.findById(userId);
-        
+        if(!user){
+            return res.json ({success: false, message: "User not found"})
+         }
         if(user.isAccountVerified){
             return res.json({success: false, message: "Account Already Verified"})
         
@@ -113,7 +116,7 @@ export const sendVerifyOtp = async (req, res) =>{
        
         const otp = String(Math.floor(100000 + Math.random()*900000))
 
-        user.verifyOtp =otp
+        user.verifyOtp = otp
         user.verifyOtpExpireAt = Date.now() + 24 * 60 * 60 * 1000
 
         await user.save();
@@ -122,32 +125,34 @@ export const sendVerifyOtp = async (req, res) =>{
             from: process.env.SMTP_EMAIL,
             to: user.email,
             subject: 'Please verifiy OTP', 
-            text: 'Your OTP code ${otp}'
+            text: `Your OTP is ${otp}. It will expire in 24 hours.`
         }
 
         await transporter.sendMail(mailOptions);
 
-        return res.json({success: true, message: 'Your account is verified'})
+        return res.json({success: true, message: 'Check your email for OTP'})
     
     } catch (error) {
-        return res.json ({sucess: false, message: error.message})
+        return res.json ({success: false, message: error.message})
     }
 }
-
-export const verfiedEmail = async (req, res) => {
-    const {userId, otp} = req.body;
+// Verify Email with OTP
+export const verifiedEmail = async (req, res) => {
+    const userId = req.userId;
+    const {otp} = req.body;
+    
     
     if (!userId || !otp) {
         return res.json({success: true, message: 'Missing details'})
     }
     try {
         const user = await userModel.findById(userId);
-
-        if(!user){
+        
+        if(!user || !otp){
             return res.json ({success: false, message: "User not found"})
         }
 
-        if(user.verifyOtp === "" || verifyOtp !== otp){
+        if(user.verifyOtp === "" || user.verifyOtp !== otp){
             return res.json ({success: false, message: "invaild OTP"})
         }
 
@@ -161,9 +166,9 @@ export const verfiedEmail = async (req, res) => {
 
         await user.save();
         
-        return res.json({sucess: true.valueOf, message: "Email verified sucessfully"})
+        return res.json({success: true, message: "Email verified successfully"})
 
     } catch (error) {
-        return res.json ({sucess: false, message: error.message})
+        return res.json ({success: false, message: error.message})
     }
 }
