@@ -2,8 +2,6 @@ import express from 'express';
 import { login, logout, register, sendVerifyOtp, verifiedEmail } from '../controllers/authController.js';
 import userAuth from '../middleware/userAuth.js';
 
-const app = express();
-app.use(express.json());
 
 const authRouter = express.Router();
 
