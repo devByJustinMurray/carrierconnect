@@ -9,16 +9,14 @@ import Footer from '../components/homepage/Footer.jsx'
 const Home = () => {
   return (
     <div>
-        <div><Navbar /></div>
+      <div><Navbar /></div>
       <div className='pt-16'><Hero /></div> 
       <div><ServiceOverview /></div> 
       <div><Metrics /></div>
       <div><CallToAction /></div>
       <div><Footer /></div>
-    </div>
-    
-
-  )
+    </div>   
+ )
 }
 
 export default Home
