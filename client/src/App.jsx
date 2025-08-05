@@ -7,6 +7,7 @@ import EmailVerified from './pages/EmailVerified'
 import DashboardMetrics from './pages/Metrics'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import LoadGrid from './pages/LoadGrid.jsx'
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/email-verified" element={<EmailVerified />}/>
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/metrics" element={<DashboardMetrics/>} />
+        <Route path="/loadboard" element={<LoadGrid/>} />
       </Routes>
 
     </div>

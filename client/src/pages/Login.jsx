@@ -26,7 +26,7 @@ const onSubmitHandler = async (e) => {
       const { data } = await axios.post(backendUrl + 'api/auth/register', { name, email, password });
       if (data.success) {
         setIsLoggedIn(true);
-        navigate('/');
+        navigate('/metrics');
       } else {
         toast.error(data.message);
       }

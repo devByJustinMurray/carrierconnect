@@ -5,6 +5,7 @@ import ServiceOverview from '../components/homepage/ServiceOverview.jsx'
 import Metrics from '../components/homepage/Metrics.jsx'
 import CallToAction from '../components/homepage/CallToAction.jsx'
 import Footer from '../components/homepage/Footer.jsx'
+import Grid from '../components/Grid.jsx'
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <div className='pt-16'><Hero /></div> 
       <div><ServiceOverview /></div> 
       <div><Metrics /></div>
+      <Grid />
       <div><CallToAction /></div>
       <div><Footer /></div>
     </div>   
