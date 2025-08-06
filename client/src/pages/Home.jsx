@@ -6,6 +6,9 @@ import Metrics from '../components/homepage/Metrics.jsx'
 import CallToAction from '../components/homepage/CallToAction.jsx'
 import Footer from '../components/homepage/Footer.jsx'
 import Grid from '../components/Grid.jsx'
+import CarrierChatAssistant from '../components/homepage/Ai.jsx'
+import Header from '../components/Header.jsx'
+import LoadGrid from '../components/homepage/LoadBoard.jsx'
 
 const Home = () => {
   return (
@@ -13,8 +16,8 @@ const Home = () => {
       <div><Navbar /></div>
       <div className='pt-16'><Hero /></div> 
       <div><ServiceOverview /></div> 
+      <div><LoadGrid /></div>
       <div><Metrics /></div>
-      <Grid />
       <div><CallToAction /></div>
       <div><Footer /></div>
     </div>   

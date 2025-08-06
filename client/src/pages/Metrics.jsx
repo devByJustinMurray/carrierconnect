@@ -3,6 +3,7 @@ import { Chart as ChartJS, BarElement, CategoryScale, LinearScale } from 'chart.
 import { Bar } from 'react-chartjs-2';
 import { CountUp } from 'countup.js';
 import { assets } from '../assets/assets';
+import Header from '../components/Header';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale);
 
@@ -45,14 +46,16 @@ const DashboardMetrics = () => {
   };
 
   return (
+    
     <main className="min-h-screen bg-[rgb(15,41,60)] text-black p-10">
       <header className="mb-10 border-b border-yellow-400 pb-4 w-full flex justify-between items-center">
         <img src={assets.miniLogo} alt="Mini Logo" className=" sm: w-32 ml-15" />
         <h1 className="text-4xl font-bold text-yellow-400" > Logistics Command Center</h1>
-
+      <div><Header /></div>
       </header>
 
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+    
         {/* User & Retail Metrics */}
         <div className="bg-gray-200 p-6 rounded shadow-inner">
           <h3 className="text-lg font-semibold">YTD Total Shipments</h3>

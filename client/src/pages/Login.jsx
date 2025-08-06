@@ -11,7 +11,7 @@ import { AppContent } from '../context/AppContext.jsx';
 const Login = () => {
 
   const navigate = useNavigate();
-  const {backendUrl, setIsLoggedIn} = useContext(AppContent);
+  const {backendUrl, setIsLoggedIn, getUserData} = useContext(AppContent);
   const [state, setState] = useState('Login');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -26,6 +26,7 @@ const onSubmitHandler = async (e) => {
       const { data } = await axios.post(backendUrl + 'api/auth/register', { name, email, password });
       if (data.success) {
         setIsLoggedIn(true);
+        getUserData();
         navigate('/metrics');
       } else {
         toast.error(data.message);
@@ -34,6 +35,7 @@ const onSubmitHandler = async (e) => {
       const { data } = await axios.post(backendUrl + 'api/auth/login', { email, password });
       if (data.success) {
         setIsLoggedIn(true);
+        getUserData();
         navigate('/metrics');
       } else {
         toast.error(data.message);

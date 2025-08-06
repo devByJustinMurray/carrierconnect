@@ -1,23 +1,33 @@
 import express from "express";
 import cors from "cors";
-import 'dotenv/config';
+import "dotenv/config";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/mongodb.js";
-import authRouter from "../server/routes/authRoutes.js"
-import userRouter from "./routes/userRoutes.js";
 
-const app = express ();
+// 🛣 Import Routes
+import authRouter from "./routes/authRoutes.js";
+import userRouter from "./routes/userRoutes.js";
+import loadRouter from "./routes/loadRoutes.js"; // New: Load Routes
+
+const app = express();
 const port = process.env.PORT || 4000;
 
+// 🧠 Connect to MongoDB
 connectDB();
 
-const allowOrigins = ['http://localhost:5173']
+// 🌐 CORS Setup
+const allowOrigins = ['http://localhost:5173'];
+app.use(cors({ origin: allowOrigins, credentials: true }));
 
+// 🧼 Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: allowOrigins, credentials: true }));
-//Api endpoints
-app.get('/', (reg, res)=> res.send("API working"));
-app.use('/api/auth', authRouter)
-app.use('/api/user', userRouter)
-app.listen(port, ()=> console.log(`App listening on port ${port}`));
+
+// 🚀 API Endpoints
+app.get('/', (req, res) => res.send("API working"));
+app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
+app.use(loadRouter); // New: Loads API
+
+// 🏁 Start Server
+app.listen(port, () => console.log(`App listening on port ${port}`));
