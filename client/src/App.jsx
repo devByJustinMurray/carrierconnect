@@ -8,6 +8,8 @@ import DashboardMetrics from './pages/Metrics'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import LoadGrid from './pages/LoadGrid.jsx'
+import Sites from './pages/sites.jsx'
+
 
 
 const App = () => {
@@ -21,6 +23,7 @@ const App = () => {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/metrics" element={<DashboardMetrics/>} />
         <Route path="/loadboard" element={<LoadGrid/>} />
+        <Route path="/sites" element={<Sites/>} />
       </Routes>
 
     </div>

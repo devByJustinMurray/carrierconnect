@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { AppContent } from '../context/AppContext.jsx';
+import Header from '../components/Header.jsx';
+
 
 const Login = () => {
 
@@ -36,7 +38,7 @@ const onSubmitHandler = async (e) => {
       if (data.success) {
         setIsLoggedIn(true);
         getUserData();
-        navigate('/metrics');
+        navigate('/sites');
       } else {
         toast.error(data.message);
       }
@@ -46,9 +48,11 @@ const onSubmitHandler = async (e) => {
   }
 }
   return (
-    <div className = 'bg-gray-200 flex items-center justify-center min-h-screen px-6 sm:px-0'>
-         
-        <div className='bg-[rgb(15,41,60)] p-10 rounded-lg shadow-lg w-full sm:w-96 text-black'>
+    <div><Header /> 
+    <div className = 'bg-gray-800 flex items-center justify-center min-h-screen sm:px-0'>
+      
+
+        <div className='bg-gray-900 p-10 rounded-lg shadow-lg w-full sm:w-96 pt-5 text-black'>
           <img onClick={()=>navigate('/')} 
           src = {assets.miniLogo} 
           alt="Carrier Connect Logo" 
@@ -104,6 +108,7 @@ const onSubmitHandler = async (e) => {
 
       </div>
   </div>
+  </div> 
   )
 }
 

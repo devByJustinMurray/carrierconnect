@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.get('/', (req, res) => res.send("API working"));
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
-app.use(loadRouter); // New: Loads API
+app.use('/api/loads', loadRouter); // New: Loads API
 
 // 🏁 Start Server
 app.listen(port, () => console.log(`App listening on port ${port}`));
