@@ -78,6 +78,17 @@ export const login = async (req, res) => {
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : "strict",
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
+            // Check if account is verified
+        if (!user.isAccountVerified) {
+        return res.json({
+        success: true,
+        requiresOtp: true,
+        userId: user._id,
+        message: "OTP required for email verification"
+      });
+      
+    }
+
             return res.json({success: true})
     } catch (error) {
         return res.json ({success: false, message: error.message})

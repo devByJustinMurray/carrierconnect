@@ -14,7 +14,7 @@ export default function LoadGrid() {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 15;
+  const rowsPerPage = 20;
 
   useEffect(() => {
     const fetchExcel = async () => {
@@ -85,15 +85,15 @@ export default function LoadGrid() {
   const paginatedData = sortedData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   return (
-    <div className="p-4 bg-gray-100 overflow-x-auto rounded">
+    <div className="p-4 bg-gray-200 overflow-x-auto rounded max-h-screen">
       {/* Search Bar */}
-      <div className="mb-4 pr-300">
+      <div className="mb-4 grid grid-cols-3  ">
         <input
           type="text"
           placeholder="Search all columns..."
           value={searchTerm}
           onChange={handleSearchChange}
-          className="w-full px-3 py-2 border rounded shadow-sm"
+          className="w-full px-3 py-2 border rounded  bg-gray-100 shadow-sm"
         />
       </div>
 
@@ -106,7 +106,7 @@ export default function LoadGrid() {
             placeholder={`Filter ${header}`}
             value={filters[header]}
             onChange={e => handleFilterChange(header, e.target.value)}
-            className="px-2 py-1 border rounded text-center"
+            className="px-2 py-1 border rounded  bg-gray-100 text-center"
           />
         ))}
       </div>
@@ -117,7 +117,7 @@ export default function LoadGrid() {
           <button
             key={i}
             onClick={() => handleSort(header)}
-            className="text-center bg-gray-200 py-2 rounded shadow-sm hover:bg-gray-300"
+            className="text-center bg-gray-100 py-2 rounded shadow-sm hover:bg-gray-300"
           >
             {header}
             {sortConfig.key === header && (
@@ -142,11 +142,11 @@ export default function LoadGrid() {
       ))}
 
       {/* Pagination Controls */}
-      <div className="flex justify-between items-center mt-4 text-sm">
+      <div className="flex justify-between items-center mt-4 text-sm pb-17">
         <button
           onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
           disabled={currentPage === 1}
-          className="px-3 py-1 bg-blue-500 text-white rounded disabled:opacity-50"
+          className="px-3 py-1 bg-blue-500 text-white rounded disabled:opacity-50 cursor-pointer"
         >
           Previous
         </button>
@@ -154,7 +154,7 @@ export default function LoadGrid() {
         <button
           onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
           disabled={currentPage === totalPages}
-          className="px-3 py-1 bg-blue-500 text-white rounded disabled:opacity-50"
+          className="px-3 py-1 bg-blue-500 text-white rounded disabled:opacity-50 cursor-pointer"
         >
           Next
         </button>
