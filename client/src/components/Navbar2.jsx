@@ -1,9 +1,26 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AppContent } from '../context/AppContext';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Navbar2 = () => {
+  const navigate = useNavigate();
   const { userData, backendUrl, SetUserData, setIsLoggedIn } = useContext(AppContent);
+
+  const logout = async () => {
+    try {
+        axios.defaults.withCredentials = true; 
+        const { data } = await axios.post(backendUrl + 'api/auth/logout');
+        data.sucess && setIsLoggedIn(false);  
+        data.sucess && setIsLoggedIn(false);   
+        navigate('/'); 
+
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
 
   return (
     <nav className="bg-gray-900 text-white px-6 py-4 pr-90 flex items-center justify-between">
@@ -32,14 +49,22 @@ const Navbar2 = () => {
         <Link to="/admin" className="hover:text-yellow-300 transition">Inventory</Link>
         <Link to="/admin" className="hover:text-yellow-300 transition">Admin</Link>
 
-        {/* User Info or Login Link */}
-        {userData ? (
-          <div className="ml-4 bg-yellow-300 text-gray-900 px-3 py-1 rounded-full font-bold">
-            {userData.name[0].toUpperCase()}
-          </div>
-        ) : (
-          <Link to="/login" className="ml-4 hover:text-yellow-300 transition">Login</Link>
-        )}
+<div>
+    {userData?
+    <div className='w-8 h-8 flex justify-center items-center rounded-full bg-yellow-300 text-black semi-bold cursor-pointer relative group'> 
+      {userData.name[0].toUpperCase()}
+    <div className='absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-10'>
+      <ul className='bg-yellow-300 text-black p-2 rounded shadow-lg '>
+        {!userData.isAccountVerified && <li className='list-none m-0 p-2 bg-yellow-300 text-sm'>Verify Email</li>}
+        
+        <li onClick={logout} className='list-none m-0 p-2 bg-yellow-300 text-sm pr-10'>Logout</li>
+      </ul>
+    </div>
+    </div>
+    : 
+    <Link to="/login" className="text-white text-lg gap-2 font-semibold px-10 py-2 rounded-md hover:bg-[rgb(15,41,60)] hover:text-gray-400">Login</Link>
+    }
+</div>
       </div>
     </nav>
   );

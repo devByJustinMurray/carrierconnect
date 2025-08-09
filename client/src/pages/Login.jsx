@@ -49,10 +49,10 @@ const onSubmitHandler = async (e) => {
 }
   return (
     <div><Header /> 
-    <div className = 'bg-gray-800 flex items-center justify-center min-h-screen sm:px-0'>
+    <div className = "bg-gray-800 min-h-screen grid place-items-start pt-40 px-4">
       
 
-        <div className='bg-gray-900 p-10 rounded-lg shadow-lg w-full sm:w-96 pt-5 text-black'>
+        <div className="w-full max-w-md bg-gray-900 p-6 rounded-lg shadow-lg mx-auto" >
           <img onClick={()=>navigate('/')} 
           src = {assets.miniLogo} 
           alt="Carrier Connect Logo" 

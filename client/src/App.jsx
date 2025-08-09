@@ -2,7 +2,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom' 
 import ResetPassword from './pages/ResetPassword'
 import Home from './pages/Home'
-import Login from './pages/Login'
+import Login from './pages/Login.jsx'
 import EmailVerified from './pages/EmailVerified'
 import DashboardMetrics from './pages/Metrics'
 import { ToastContainer } from 'react-toastify'
@@ -17,7 +17,7 @@ const App = () => {
     <div >
       <ToastContainer />
       <Routes> 
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/email-verified" element={<EmailVerified />}/>
         <Route path="/reset-password" element={<ResetPassword />} />
