@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Logo from '../components/Logo.jsx';
+
 
 const VerifyOtp = () => {
   const [otp, setOtp] = useState('');
@@ -32,7 +34,7 @@ const VerifyOtp = () => {
       const res = await axios.post('/api/auth/verify-account', { otp });
       if (res.data.success) {
         toast.success('Email verified!');
-        navigate('/sites'); // or wherever you want to go next
+        navigate('/loadboard'); // or wherever you want to go next
       } else {
         toast.error(res.data.message);
       }
@@ -44,22 +46,22 @@ const VerifyOtp = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-800">
-      <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
-        <h2 className="text-xl font-semibold mb-4">Verify Your Email</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-200">
+      <div className="bg-gray-900 p-6 rounded shadow-md w-full max-w-md ">
+        <Logo />
         <input
           type="text"
           value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-          placeholder="Enter OTP"
-          className="w-full px-4 py-2 border rounded mb-4"
+          onChange={(e) => setOtp(e.target.value)}s
+          placeholder="Enter Verification Code"
+          className="w-full px-4 py-2 bg-gray-200 border rounded mb-4"
         />
         <button
           onClick={handleVerify}
           disabled={loading}
-          className="w-full bg-yellow-500 text-black py-2 rounded hover:bg-yellow-600"
+          className="w-full bg-yellow-300 text-black py-2 rounded hover:bg-yellow-400"
         >
-          {loading ? 'Verifying...' : 'Verify OTP'}
+          {loading ? 'Verifying...' : 'Verify'}
         </button>
       </div>
     </div>

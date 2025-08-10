@@ -26,7 +26,7 @@ const App = () => {
         <Route path="/metrics" element={<DashboardMetrics/>} />
         <Route path="/loadboard" element={<LoadGrid/>} />
         <Route path="/sites" element={<Sites/>} />
-        <Route path="/Load" element={<Load/>} />
+        <Route path="/load" element={<Load/>} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
       </Routes>
 

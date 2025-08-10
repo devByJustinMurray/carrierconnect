@@ -30,7 +30,7 @@ const onSubmitHandler = async (e) => {
       if (data.success) {
         setIsLoggedIn(true);
         getUserData();
-        navigate('/metrics');
+        navigate('/loadboard');
       } else {
         toast.error(data.message);
       }
@@ -47,7 +47,7 @@ const onSubmitHandler = async (e) => {
       if (data.success) {
         setIsLoggedIn(true);
         getUserData();
-        navigate('/sites');
+        navigate('/loadboard');
       } else {
         toast.error(data.message);
       }
@@ -59,7 +59,7 @@ const onSubmitHandler = async (e) => {
 
   return (
     <div><Header /> 
-    <div className = "bg-gray-800 min-h-screen grid place-items-start pt-40 px-4">
+    <div className = " bg-gray-200 min-h-screen grid place-items-start pt-40 px-4">
       
 
         <div className="w-full max-w-md bg-gray-900 p-6 rounded-lg shadow-lg mx-auto" >
@@ -69,7 +69,7 @@ const onSubmitHandler = async (e) => {
         </div>
         <span className="text-4xl font-semibold text-white">Carrier Connect</span>
       </Link>
-          <h2 className='text-3xl font-semibold text-center mb-6 pt-4 text-white'>{state === 'Login' ? 'Login' : 'Create an Account'}</h2>
+          <h2 className='text-2xl font-semibold text-center mb-6 pt-4 text-white'>{state === 'Login' ? 'Login' : 'Create an Account'}</h2>
        
         {/*setting state and collecting name onchange*/}
         <form onSubmit={onSubmitHandler}>
