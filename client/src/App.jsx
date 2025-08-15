@@ -8,9 +8,10 @@ import DashboardMetrics from './pages/Metrics'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import LoadGrid from './pages/LoadGrid.jsx'
-import Sites from './pages/sites.jsx'
+import Sites from './pages/sites/Sites.jsx'
 import Load from './pages/Load.jsx'
-import VerifyOtp from './pages/VerifyOTP.jsx'
+import VerifyOtp from './pages/login/VerifyOTP.jsx'
+
 
 
 

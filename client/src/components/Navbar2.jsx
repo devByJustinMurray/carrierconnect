@@ -54,10 +54,8 @@ const Navbar2 = () => {
     <div className='w-8 h-8 flex justify-center items-center rounded-full bg-yellow-300 text-black semi-bold cursor-pointer relative group'> 
       {userData.name[0].toUpperCase()}
     <div className='absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-10'>
-      <ul className='bg-yellow-300 text-black p-2 rounded shadow-lg '>
-        {!userData.isAccountVerified && <li className='list-none m-0 p-2 bg-yellow-300 text-sm'>Verify Email</li>}
-        
-        <li onClick={logout} className='list-none m-0 p-2 bg-yellow-300 text-sm pr-10'>Logout</li>
+      <ul className='bg-yellow-300 text-black p-2rounded shadow-lg '>      
+        <li onClick={logout} className='list-none  m-3 p-4 bg-yellow-300 text-sm pr-5'>Logout</li>
       </ul>
     </div>
     </div>
